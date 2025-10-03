@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG Kimetsu no Yaiba</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #8B0000 0%, #2C0000 100%);
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(139, 0, 0, 0.5);
+            border-bottom: 2px solid #ff6b6b;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+        }
+
+        .menu-toggle {
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: #ff6b6b;
+            margin: 4px 0;
+            transition: 0.3s;
+            box-shadow: 0 0 5px rgba(255, 107, 107, 0.5);
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: rotate(-45deg) translate(-8px, 6px);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: rotate(45deg) translate(-8px, -6px);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #1a0000 0%, #0a0a0a 100%);
+            padding: 80px 20px 20px;
+            transition: 0.4s;
+            z-index: 999;
+            border-left: 2px solid #ff6b6b;
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        nav.active {
+            right: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 1.5rem 0;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: 0.3s;
+        }
+
+        nav.active .nav-links li {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        nav.active .nav-links li:nth-child(1) { transition-delay: 0.1s; }
+        nav.active .nav-links li:nth-child(2) { transition-delay: 0.2s; }
+        nav.active .nav-links li:nth-child(3) { transition-delay: 0.3s; }
+        nav.active .nav-links li:nth-child(4) { transition-delay: 0.4s; }
+
+        .nav-links a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-size: 1.3rem;
+            display: block;
+            padding: 0.5rem;
+            border-left: 3px solid transparent;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            border-left: 3px solid #ff6b6b;
+            padding-left: 1rem;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.8);
+        }
+
+        /* Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            z-index: 998;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+            padding: 100px 20px 40px;
+            min-height: 100vh;
+            animation: fadeIn 0.5s;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6b6b;
+            text-align: center;
+            margin-bottom: 2rem;
+            text-shadow: 0 0 15px rgba(255, 107, 107, 0.6);
+            border-bottom: 2px solid #ff6b6b;
+            padding-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #ff8c8c;
+            margin: 2rem 0 1rem;
+            text-shadow: 0 0 10px rgba(255, 140, 140, 0.5);
+        }
+
+        h3 {
+            font-size: 1.4rem;
+            color: #ffaaaa;
+            margin: 1.5rem 0 0.8rem;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #ddd;
+        }
+
+        /* Home Page */
+        .hero {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            margin: 2rem auto;
+            background: linear-gradient(135deg, #8B0000 0%, #2C0000 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+            border: 2px solid #ff6b6b;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #1a0000 0%, #0d0d0d 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #ff6b6b;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Character Cards */
+        .character-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .character-card {
+            background: linear-gradient(135deg, #1a0000 0%, #0d0d0d 100%);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+        }
+
+        .character-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #8B0000 0%, #2C0000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .character-info {
+            padding: 1.5rem;
+        }
+
+        .character-name {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .character-class {
+            color: #ffaaaa;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        /* System Cards */
+        .system-section {
+            background: linear-gradient(135deg, #1a0000 0%, #0d0d0d 100%);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #ff6b6b;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.2);
+        }
+
+        .system-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            color: #ddd;
+        }
+
+        li {
+            margin: 0.5rem 0;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        /* Story Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-top: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: #ff6b6b;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 1rem;
+        }
+
+        .timeline-item::before {
+            content: '⚔️';
+            position: absolute;
+            left: -2.3rem;
+            top: 0;
+            background: #1a0000;
+            padding: 0.3rem;
+            border-radius: 50%;
+            border: 2px solid #ff6b6b;
+        }
+
+        /* Responsive */
+        @media (min-width: 768px) {
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .character-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ff6b6b;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff8c8c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">⚔️ Kimetsu RPG</div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <nav id="nav">
+        <ul class="nav-links">
+            <li><a href="#" data-page="home" class="active">🏠 Início</a></li>
+            <li><a href="#" data-page="historia">📜 História</a></li>
+            <li><a href="#" data-page="personagens">👥 Personagens</a></li>
+            <li><a href="#" data-page="sistemas">⚙️ Sistemas</a></li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay"></div>
+
+    <!-- HOME PAGE -->
+    <div class="page active" id="home">
+        <div class="container">
+            <div class="hero">
+                <h1>Bem-vindo ao RPG Kimetsu no Yaiba</h1>
+                <div class="hero-image">⚔️🌸</div>
+                <p style="font-size: 1.2rem; margin-top: 1rem;">
+                    Entre no mundo dos caçadores de demônios e forje sua própria lenda
+                </p>
+            </div>
+
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <h3>Sistema Slayer</h3>
+                    <p>Domine as técnicas de respiração e torne-se um poderoso caçador de demônios.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👹</div>
+                    <h3>Sistema Oni</h3>
+                    <p>Explore os poderes sombrios dos demônios e suas habilidades únicas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Sistema Monetário</h3>
+                    <p>Gerencie seus recursos, compre equipamentos e aprimore suas habilidades.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <h3>Regras Detalhadas</h3>
+                    <p>Sistema de combate equilibrado e mecânicas imersivas de roleplay.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- HISTORIA PAGE -->
+    <div class="page" id="historia">
+        <div class="container">
+            <h1>📜 História do RPG</h1>
+            
+            <div class="system-section">
+                <p>
+                    No período Taishō do Japão, demônios aterrorizantes espreitam nas sombras, 
+                    devorando humanos inocentes. Contra essas criaturas das trevas, uma organização 
+                    secreta de guerreiros conhecida como <span class="highlight">Demon Slayer Corps</span> 
+                    luta incansavelmente para proteger a humanidade.
+                </p>
+            </div>
+
+            <h2>A Origem dos Demônios</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h3>O Primeiro Demônio</h3>
+                    <p>
+                        Há mais de mil anos, <span class="highlight">Muzan Kibutsuji</span> tornou-se 
+                        o primeiro demônio, dando origem a uma espécie que se alimenta de humanos para 
+                        sobreviver. Desde então, ele criou incontáveis demônios para executar seus planos sombrios.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>A Fundação do Corps</h3>
+                    <p>
+                        Em resposta à ameaça demoníaca, guerreiros corajosos formaram o Demon Slayer Corps, 
+                        desenvolvendo técnicas especiais de <span class="highlight">Respiração</span> e 
+                        utilizando espadas de <span class="highlight">Nichirin</span>, as únicas armas 
+                        capazes de matar demônios permanentemente.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <h3>Sua Jornada Começa</h3>
+                    <p>
+                        Você é um novo recruta do Demon Slayer Corps, tendo sobrevivido ao brutal 
+                        <span class="highlight">Treinamento na Montanha Fujikasane</span>. Sua história 
+                        está apenas começando, e o destino da humanidade pode depender de suas escolhas.
+                    </p>
+                </div>
+            </div>
+
+            <h2>O Mundo do RPG</h2>
+            <div class="system-section">
+                <p>
+                    Neste RPG, você explorará o Japão do período Taishō, visitando vilas rurais 
+                    assombradas por demônios, cidades movimentadas cheias de intrigas e montanhas 
+                    misteriosas onde as criaturas mais poderosas se escondem.
+                </p>
+                <p>
+                    Cada escolha que você faz influencia sua jornada. Você se tornará um Hashira 
+                    lendário, dominará uma técnica de respiração única, ou sucumbirá à escuridão?
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERSONAGENS PAGE -->
+    <div class="page" id="personagens">
+        <div class="container">
+            <h1>👥 Personagens Jogáveis</h1>
+
+            <div class="character-grid">
+                <div class="character-card">
+                    <div class="character-image">⚔️</div>
+                    <div class="character-info">
+                        <div class="character-name">Caçador Iniciante</div>
+                        <div class="character-class">Classe: Slayer</div>
+                        <p>
+                            <strong>Habilidades:</strong> Técnicas básicas de respiração, combate com espada Nichirin.
+                        </p>
+                        <p>
+                            <strong>Vantagens:</strong> Versátil, pode aprender qualquer estilo de respiração.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">🌊</div>
+                    <div class="character-info">
+                        <div class="character-name">Usuário de Respiração da Água</div>
+                        <div class="character-class">Classe: Slayer Elementalista</div>
+                        <p>
+                            <strong>Habilidades:</strong> Domínio das 10 formas da Respiração da Água, movimentos fluidos.
+                        </p>
+                        <p>
+                            <strong>Vantagens:</strong> Defesa superior e técnicas adaptativas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">🔥</div>
+                    <div class="character-info">
+                        <div class="character-name">Usuário de Respiração das Chamas</div>
+                        <div class="character-class">Classe: Slayer Ofensivo</div>
+                        <p>
+                            <strong>Habilidades:</strong> Ataques devastadores de fogo, poder bruto imenso.
+                        </p>
+                        <p>
+                            <strong>Vantagens:</strong> Dano máximo, espírito indomável.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">⚡</div>
+                    <div class="character-info">
+                        <div class="character-name">Usuário de Respiração do Trovão</div>
+                        <div class="character-class">Classe: Slayer Velocista</div>
+                        <p>
+                            <strong>Habilidades:</strong> Velocidade extrema, ataques relâmpago devastadores.
+                        </p>
+                        <p>
+                            <strong>Vantagens:</strong> Mobilidade incomparável, primeiro ataque letal.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">👹</div>
+                    <div class="character-info">
+                        <div class="character-name">Demônio Renegado</div>
+                        <div class="character-class">Classe: Oni</div>
+                        <p>
+                            <strong>Habilidades:</strong> Regeneração, força sobre-humana, Kekkijutsu (Arte de Sangue).
+                        </p>
+                        <p>
+                            <strong>Desvantagens:</strong> Vulnerável ao sol e espadas Nichirin.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">🌸</div>
+                    <div class="character-info">
+                        <div class="character-name">Híbrido Especial</div>
+                        <div class="character-class">Classe: Humano-Demônio</div>
+                        <p>
+                            <strong>Habilidades:</strong> Combinação única de técnicas de respiração e poderes demoníacos.
+                        </p>
+                        <p>
+                            <strong>Vantagens:</strong> Extremamente raro, potencial ilimitado.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMAS PAGE -->
+    <div class="page" id="sistemas">
+        <div class="container">
+            <h1>⚙️ Sistemas do RPG</h1>
+
+            <h2>⚔️ Sistema Slayer</h2>
+            <div class="system-section">
+                <div class="system-icon">⚔️</div>
+                <h3>Técnicas de Respiração</h3>
+                <p>
+                    As técnicas de respiração são o fundamento do poder de um caçador. 
+                    Cada estilo possui formas únicas que podem ser desbloqueadas através de treinamento.
+                </p>
+                <ul>
+                    <li><span class="highlight">Respiração da Água:</span> 10 formas - Defesa e adaptabilidade</li>
+                    <li><span class="highlight">Respiração das Chamas:</span> 9 formas - Poder e coragem</li>
+                    <li><span class="highlight">Respiração do Trovão:</span> 7 formas - Velocidade e precisão</li>
+                    <li><span class="highlight">Respiração da Pedra:</span> 5 formas - Força e resistência</li>
+                    <li><span class="highlight">Respiração do Vento:</span> 8 formas - Agilidade e destrutividade</li>
+                </ul>
+
+                <h3>Sistema de Progressão</h3>
+                <ul>
+                    <li>Recruta → Mizunoto → Mizunoe → Kanoto → Kanoe → Tsuchinoto → Tsuchinoe → Hinoto → Hinoe → Kinoto → Kinoe</li>
+                    <li>Após Kinoe, um caçador pode se tornar <span class="highlight">Hashira</span> (Pilar)</li>
+                    <li>Experiência ganha através de missões, treinamento e combates</li>
+                </ul>
+            </div>
+
+            <h2>👹 Sistema Oni (Demônios)</h2>
+            <div class="system-section">
+                <div class="system-icon">👹</div>
+                <h3>Poderes Demoníacos</h3>
+                <p>
+                    Demônios possuem habilidades sobre-humanas e podem desenvolver 
+                    <span class="highlight">Kekkijutsu</span> (Artes de Sangue) únicas.
+                </p>
+                <ul>
+                    <li><span class="highlight">Regeneração:</span> Cura rápida de ferimentos (exceto de espadas Nichirin)</li>
+                    <li><span class="highlight">Força Aprimorada:</span> Poder físico muito superior aos humanos</li>
+                    <li><span class="highlight">Kekkijutsu:</span> Habilidades especiais baseadas em sangue demoníaco</li>
+                    <li><span class="highlight">Imortalidade:</span> Não envelhece, mas pode ser morto</li>
+                </ul>
+
+                <h3>Hierarquia Demoníaca</h3>
+                <ul>
+                    <li>Demônios Comuns - Poder básico</li>
+                    <li>Demônios com Kekkijutsu - Habilidades especiais</li>
+                    <li><span class="highlight">Doze Luas Demoníacas:</span> Os demônios mais poderosos sob o comando de Muzan</li>
+                    <li><span class="highlight">Muzan Kibutsuji:</span> O Rei dos Demônios</li>
+                </ul>
+
+                <h3>Fraquezas</h3>
+                <ul>
+                    <li>Luz solar (mortal)</li>
+                    <li>Espadas Nichirin</li>
+                    <li>Glicínias (venenosas para demônios)</li>
+                    <li>Decapitação completa</li>
+                </ul>
+            </div>
+
+            <h2>💰 Sistema Monetário</h2>
+            <div class="system-section">
+                <div class="system-icon">💰</div>
+                <h3>Moeda: Yen</h3>
+                <p>
+                    O sistema monetário utiliza o Yen japonês do período Taishō. 
+                    Caçadores recebem pagamento por missões completadas.
+                </p>
+
+                <h3>Valores de Referência</h3>
+                <ul>
+                    <li>Missão Rank D: 500 - 1.000 Yen</li>
+                    <li>Missão Rank C: 1.500 - 3.000 Yen</li>
+                    <li>Missão Rank B: 5.000 - 10.000 Yen</li>
+                    <li>Missão Rank A: 15.000 - 30.000 Yen</li>
+                    <li>Missão Rank S: 50.000+ Yen</li>
+                </ul>
+
+                <h3>Itens para Compra</h3>
+                <ul>
+                    <li><span class="highlight">Espada Nichirin:</span> Fornecida gratuitamente ao se tornar caçador</li>
+                    <li><span class="highlight">Poções de Cura:</span> 200 Yen cada</li>
+                    <li><span class="highlight">Equipamento de Proteção:</span> 1.000 - 5.000 Yen</li>
+                    <li><span class="highlight">Manutenção de Arma:</span> 500 Yen</li>
+                    <li><span class="highlight">Treinamento Especial:</span> 3.000 - 10.000 Yen</li>
+                </ul>
+            </div>
+
+            <h2>📖 Regras do Sistema</h2>
+            <div class="system-section">
+                <div class="system-icon">📖</div>
+                <h3>Sistema de Combate</h3>
+                <ul>
+                    <li>Iniciativa baseada em velocidade do personagem</li>
+                    <li>Rolagens de d20 + modificadores para ataques</li>
+                    <li>Defesa baseada em técnicas de respiração ou regeneração</li>
+                    <li>Dano crítico em rolagens naturais de 20</li>
+                </ul>
+
+                <h3>Sistema de Experiência</h3>
+                <ul>
+                    <li>XP ganho por derrotar demônios, completar missões e treinar</li>
+                    <li>Level Up aumenta atributos e desbloqueia novas formas</li>
+                    <li>Bônus de XP por roleplay e decisões narrativas interessantes</li>
+                </ul>
+
+                <h3>Atributos dos Personagens</h3>
+                <ul>
+                    <li><span class="highlight">Força:</span> Dano físico e capacidade de carga</li>
+                    <li><span class="highlight">Destreza:</span> Velocidade, precisão e esquiva</li>
+                    <li><span class="highlight">Constituição:</span> HP, resistência e regeneração</li>
+                    <li><span class="highlight">Sabedoria:</span> Percepção e instinto de luta</li>
+                    <li><span class="highlight">Carisma:</span> Liderança e persuasão</li>
+                </ul>
+
+                <h3>Condições Especiais</h3>
+                <ul>
+                    <li><span class="highlight">Marca do Caçador:</span> Ativa sob extremo stress, aumenta todos atributos temporariamente</li>
+                    <li><span class="highlight">Mundo Transparente:</span> Permite ver os músculos e movimentos do oponente</li>
+                    <li><span class="highlight">Espada Carmesim:</span> Aumenta drasticamente o dano contra demônios</li>
+                    <li><span class="highlight">Forma Demoníaca:</span> Transformação que aumenta poder mas consome humanidade</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const nav = document.getElementById('nav');
+        const overlay = document.getElementById('overlay');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const pages = document.querySelectorAll('.page');
+
+        // Abrir/Fechar Menu
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            nav.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar no overlay
+        overlay.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            nav.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // Navegação entre páginas
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Pegar o nome da página
+                const pageName = link.getAttribute('data-page');
+                
+                // Remover classe active de todos os links
+                navLinks.forEach(l => l.classList.remove('active'));
+                
+                // Adicionar classe active no link clicado
+                link.classList.add('active');
+                
+                // Esconder todas as páginas
+                pages.forEach(page => page.classList.remove('active'));
+                
+                // Mostrar a página selecionada
+                document.getElementById(pageName).classList.add('active');
+                
+                // Fechar o menu
+                menuToggle.classList.remove('active');
+                nav.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // Scroll para o topo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
