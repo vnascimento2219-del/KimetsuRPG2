@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPG: Kimetsu no Yaiba</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="KM.css">
+
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="logo.png"/>
+                <span>KIMETSU NO YAIBA: RPG</span>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+    <nav id="nav">
+        <ul class="nav-links">
+            <li><a href="#" data-page="principal" class="nav-item active"> Home </a></li>
+            <li><a href="#" data-page="sistemas" class="nav-item"> Systems </a></li>
+            <li><a href="#" data-page="historia" class="nav-item"> History </a></li>
+            <li><a href="#" data-page="personagens" class="nav-item"> Characters </a></li>
+        </ul>
+    </nav>
+    <div class="overlay" id="overlay"></div>
+
+    <!-- PRINCIPAL PAGE -->
+
+    <div class="page active" id="principal">
+        <div class="container">
+
+            <div class="image-placeholder">
+                <img src="principal.png" width="1000" height="450"></img>
+            </div>
+
+            <div class="updates-section">
+                <h1> Atualizações </h1>
+                
+                <div class="update-card" data-update="update-1">
+                    <div class="update-title">(xxx)</div>
+                    <div class="update-date">(xxx)</div>
+                </div>
+
+                <div class="update-card" data-update="update-2">
+                    <div class="update-title">(xxx)</div>
+                    <div class="update-date">(xxx)</div>
+                </div>
+
+                <div class="update-card" data-update="update-3">
+                    <div class="update-title">(xxx)</div>
+                    <div class="update-date">(xxx)</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- UPDATE SUBPAGES -->
+    <div class="page" id="update-1">
+        <div class="container">
+            <button class="back-button" data-back="principal">← (xxx)</button>
+            <h1>(xxx)</h1>
+            
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="update-2">
+        <div class="container">
+            <button class="back-button" data-back="principal">← (xxx)</button>
+            <h1>(xxx)</h1>
+            
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page" id="update-3">
+        <div class="container">
+            <button class="back-button" data-back="principal">← (xxx)</button>
+            <h1>(xxx)</h1>
+            
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMAS PAGE -->
+    <div class="page" id="sistemas">
+        <div class="container">
+            <h1>(xxx)</h1>
+
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="system-grid">
+                <div class="system-card" data-page="sistema-slayer">
+                    <div class="system-icon">⚔️</div>
+                    <div class="system-info">
+                        <div class="system-name">(xxx)</div>
+                        <div class="system-description">(xxx)</div>
+                    </div>
+                </div>
+
+                <div class="system-card" data-page="sistema-oni">
+                    <div class="system-icon">👹</div>
+                    <div class="system-info">
+                        <div class="system-name">(xxx)</div>
+                        <div class="system-description">(xxx)</div>
+                    </div>
+                </div>
+
+                <div class="system-card" data-page="sistema-monetario">
+                    <div class="system-icon">💰</div>
+                    <div class="system-info">
+                        <div class="system-name">(xxx)</div>
+                        <div class="system-description">(xxx)</div>
+                    </div>
+                </div>
+
+                <div class="system-card" data-page="sistema-regras">
+                    <div class="system-icon">📖</div>
+                    <div class="system-info">
+                        <div class="system-name">(xxx)</div>
+                        <div class="system-description">(xxx)</div>
+                    </div>
+                </div>
+
+                <div class="system-card" data-page="sistema-combate">
+                    <div class="system-icon">⚡</div>
+                    <div class="system-info">
+                        <div class="system-name">(xxx)</div>
+                        <div class="system-description">(xxx)</div>
+                    </div>
+                </div>
+
+                <div class="system-card" data-page="sistema-progressao">
+                    <div class="system-icon">📊</div>
+                    <div class="system-info">
+                        <div class="system-name">(xxx)</div>
+                        <div class="system-description">(xxx)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA SLAYER PAGE -->
+    <div class="page" id="sistema-slayer">
+        <div class="container">
+            <button class="back-button" data-back="sistemas">← (xxx)</button>
+            <h1>(xxx)</h1>
+
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <div class="content-icon">⚔️</div>
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA ONI PAGE -->
+    <div class="page" id="sistema-oni">
+        <div class="container">
+            <button class="back-button" data-back="sistemas">← (xxx)</button>
+            <h1>(xxx)</h1>
+
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <div class="content-icon">👹</div>
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA MONETARIO PAGE -->
+    <div class="page" id="sistema-monetario">
+        <div class="container">
+            <button class="back-button" data-back="sistemas">← (xxx)</button>
+            <h1>(xxx)</h1>
+
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <div class="content-icon">💰</div>
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA REGRAS PAGE -->
+    <div class="page" id="sistema-regras">
+        <div class="container">
+            <button class="back-button" data-back="sistemas">← (xxx)</button>
+            <h1>(xxx)</h1>
+            <p>Esta seção apresenta os principais sistemas que regem a dinâmica do RPG. Aqui, você encontrará informações detalhadas sobre os mecanismos de combate, progressão de personagens, habilidades e demais estruturas que sustentam a experiência de jogo. Cada sistema foi desenvolvido para proporcionar equilíbrio, profundidade estratégica e imersão narrativa. </p>
+
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <div class="content-icon">📖</div>
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA COMBATE PAGE -->
+    <div class="page" id="sistema-combate">
+        <div class="container">
+            <button class="back-button" data-back="sistemas">← (xxx)</button>
+            <h1>(xxx)</h1>
+
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <div class="content-icon">⚡</div>
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SISTEMA PROGRESSAO PAGE -->
+    <div class="page" id="sistema-progressao">
+        <div class="container">
+            <button class="back-button" data-back="sistemas">← (xxx)</button>
+            <h1>(xxx)</h1>
+
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <div class="content-icon">📊</div>
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- HISTORIA PAGE -->
+    <div class="page" id="historia">
+        <div class="container">
+            <h1>(xxx)</h1>
+            
+            <div class="image-placeholder">
+                🖼️
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+
+            <div class="content-section">
+                <h2>(xxx)</h2>
+                <p>(xxx)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- PERSONAGENS PAGE -->
+    <div class="page" id="personagens">
+        <div class="container">
+
+            <br><h1> Characters </h1>
+            <p> Nesta seção, apresentamos os personagens que compõem o universo deste RPG. Cada figura possui atributos únicos, uma trajetória singular e um papel essencial na construção da narrativa. Heróis, vilões, aliados e criaturas fantásticas --- todos contribuem para a complexidade e profundidade da história. Explore suas origens, habilidades e motivações, e descubra como suas escolhas influenciam o destino de cada um. </p>
+
+            <div class="character-grid">
+                <div class="character-card">
+                    <div class="character-image"> 
+                        <img src="https://i.pinimg.com/736x/a4/49/b7/a449b72bfc369d8f5a1c8955d2305c3c.jpg"  width="100%" height="100%"></img>
+                    </div>
+                    <div class="character-info">
+                        <div class="character-name">(xxx)</div>
+                        <div class="character-alias">(xxx)</div>
+                        <div class="character-bounty">(xxx)</div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://i.pinimg.com/736x/da/df/b4/dadfb4667c238fb107424b1765e3a08e.jpg"  width="100%" height="100%"></img>
+                    </div>
+                    <div class="character-info">
+                        <div class="character-name">(xxx)</div>
+                        <div class="character-alias">(xxx)</div>
+                        <div class="character-bounty">(xxx)</div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://i.pinimg.com/736x/99/94/b2/9994b225fc579af92fd87a58d2f0ba01.jpg"  width="100%" height="100%"></img>
+                    </div>
+                    <div class="character-info">
+                        <div class="character-name">(xxx)</div>
+                        <div class="character-alias">(xxx)</div>
+                        <div class="character-bounty">(xxx)</div>
+                    </div>
+                </div>
+
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://i.pinimg.com/736x/7d/5d/46/7d5d466011acd064fcd9c2f92dbd8a19.jpg"  width="100%" height="100%"></img>
+                    </div>
+                    <div class="character-info">
+                        <div class="character-name">(xxx)</div>
+                        <div class="character-alias">(xxx)</div>
+                        <div class="character-bounty">(xxx)</div>
+                    </div>
+            </div>
+
+            
+                <div class="character-card">
+                    <div class="character-image">
+                        <img src="https://i.pinimg.com/1200x/15/0a/c3/150ac3880fc5171217dc7c49679780d7.jpg"  width="100%" height="100%"></img>
+                    </div>
+                    <div class="character-info">
+                        <div class="character-name">(xxx)</div>
+                        <div class="character-alias">(xxx)</div>
+                        <div class="character-bounty">(xxx)</div>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+
+    <footer>
+            <div class="footer-copyright">
+                @ Todos os Direitos Reservados. <br> Densenvolvido por Vih.
+            </div>
+    </footer>
+    
+    <script src="KM.js"></script>
+</body>
+</html>
